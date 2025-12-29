@@ -1,7 +1,6 @@
 import psutil
 import sqlite3
 import datetime
-from plyer import notification
 
 # ------------ GET CURRENT STATS ------------
 def get_stats():
@@ -51,9 +50,9 @@ def format_diff(current, last):
         return ""
     diff = current - last
     arrow = "▲" if diff > 0 else "▼" if diff < 0 else "•"
-    return f"({arrow} {abs(round(diff,1))}%)"
+    return f" ({arrow} {abs(round(diff,1))}%)"
 
-# ------------ MAIN ------------
+# ------------ MAIN EXECUTION ------------
 init_db()
 current = get_stats()
 last = get_last_stats()
@@ -62,18 +61,14 @@ cpu_diff = format_diff(current["cpu"], last[0] if last else None)
 ram_diff = format_diff(current["ram"], last[1] if last else None)
 disk_diff = format_diff(current["disk"], last[2] if last else None)
 
-# ------------ MINIMAL DARK-PURPLE FEEL (TEXT-ONLY) ------------
-message = f"""
-CPU: {current['cpu']}% {cpu_diff}
-RAM: {current['ram']}% {ram_diff}
-Disk: {current['disk']}% {disk_diff}
+report = f"""
+🟣 Boot System Metrics
+CPU: {current['cpu']}%{cpu_diff}
+RAM: {current['ram']}%{ram_diff}
+Disk: {current['disk']}%{disk_diff}
 """.strip()
 
-notification.notify(
-    title="🟣 System Health — Boot Status",
-    message=message,
-    timeout=10,           # seconds
-    app_name="BootStats",
-)
+# Optional console-print if you run manually
+print(report)
 
 save_stats(current)
