@@ -1,0 +1,56 @@
+CREATE TABLE IF NOT EXISTS PRODUCT(
+    PRODUCT_ID TEXT PRIMARY KEY,
+    PRODUCT_NAME TEXT,
+    SUPLLIER_ID TEXT,
+    CATEGORY_ID TEXT,
+    UNIT TEXT,
+    PRICE REAL
+);
+INSERT INTO PRODUCT (PRODUCT_ID, PRODUCT_NAME, SUPLLIER_ID, CATEGORY_ID, UNIT, PRICE) VALUES
+('P001', 'Chai', 'S001', 'C001', '10 boxes x 20 bags', 18.00),
+('P002', 'Chang', 'S001', 'C001', '24 - 12 oz bottles', 19.00),
+('P003', 'Aniseed Syrup', 'S002', 'C002', '12 - 550 ml bottles', 10.00),
+('P004', 'Chef Anton''s Cajun Seasoning', 'S002', 'C002', '48 - 6 oz jars', 22.00),
+('P005', 'Chef Anton''s Gumbo Mix', 'S002', 'C002', '36 boxes', 21.35),
+('P006', 'Grandma''s Boysenberry Spread', 'S003', 'C002', '12 - 8 oz jars', 25.00),
+('P007', 'Uncle Bob''s Organic Dried Pears', 'S003', 'C007', '12 - 1 lb pkgs.', 30.00),
+('P008', 'Northwoods Cranberry Sauce', 'S003', 'C002', '12 - 12 oz jars', 40.00),
+('P009', 'Mishi Kobe Niku', 'S004', 'C006', '18 - 500 g pkgs.', 97.00),
+('P010', 'Ikura', 'S004', 'C008', '12 - 200 ml jars', 31.00);
+
+SELECT COUNT(PRODUCT_ID) AS Product_Count FROM PRODUCT;
+
+SELECT AVG(PRICE) AS Average_Price FROM PRODUCT;
+
+SELECT SUM(PRICE) AS Total_Price FROM PRODUCT;  
+
+SELECT MIN(PRICE) AS Min_Price FROM PRODUCT;
+
+SELECT MAX(PRICE) AS Max_Price FROM PRODUCT;
+
+SELECT * 
+FROM PRODUCT
+WHERE PRODUCT_NAME LIKE 'Chef%';
+
+SELECT * 
+FROM PRODUCT
+WHERE PRODUCT_NAME LIKE '%Organic%';
+
+SELECT * 
+FROM PRODUCT
+WHERE PRICE > 20 AND CATEGORY_ID = 'C002';
+
+SELECT * 
+FROM PRODUCT
+WHERE CATEGORY_ID = 'C001' OR CATEGORY_ID = 'C006';
+
+UPDATE PRODUCT
+SET PRICE = 20.00
+WHERE PRODUCT_ID = 'P001';
+
+UPDATE PRODUCT
+SET UNIT = '20 boxes', PRICE = 23.00
+WHERE PRODUCT_NAME LIKE 'Chef%';
+
+DELETE FROM PRODUCT
+WHERE PRODUCT_ID = 'P010';
